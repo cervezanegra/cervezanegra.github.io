@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cerveza Negra · Revista digital de exploración del lenguaje</title>
+
+  <!-- Tipos de letra opcionales (puedes quitarlos si quieres algo 100% local) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Merriweather:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --bg-main: #050505;
+      --bg-alt: #111111;
+      --bg-card: #141414;
+      --text-main: #f6f2e9;
+      --text-muted: #aaa39b;
+      --accent: #c9a34e;
+      --accent-soft: rgba(201, 163, 78, 0.16);
+      --border-subtle: rgba(255, 255, 255, 0.05);
+      --danger: #c10000;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+        Consolas, "Liberation Mono", "Courier New", monospace;
+      --serif: "Merriweather", "Georgia", serif;
+      --display: "Bebas Neue", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      --radius-lg: 18px;
+      --radius-md: 999px;
+      --shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.75);
+      --shadow-subtle: 0 16px 30px rgba(0, 0, 0, 0.55);
+      --transition-fast: 0.17s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #1a1208 0, #050505 55%);
+      color: var(--text-main);
+      font-family: var(--serif);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px 16px 72px;
+    }
+
+    /* Header */
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 10px 18px;
+      margin-bottom: 24px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0)
+        ),
+        rgba(5, 5, 5, 0.8);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle);
+      position: sticky;
+      top: 10px;
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 0%, #f6f2e9 0, transparent 56%),
+        radial-gradient(circle at 70% 100%, #c9a34e 0, transparent 55%),
+        radial-gradient(circle at 50% 50%, #111111 0, #050505 60%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.7), var(--shadow-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--display);
+      letter-spacing: 1px;
+      font-size: 20px;
+      color: #000;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .brand-text-title {
+      font-family: var(--display);
+      font-size: 26px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .brand-text-sub {
+      margin: 0;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.21em;
+      color: var(--text-muted);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-link {
+      border-radius: var(--radius-md);
+      padding: 6px 12px;
+      font-size: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      border-color: var(--accent-soft);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .nav-cta {
+      border-radius: var(--radius-md);
+      padding: 7px 16px;
+      font-size: 12px;
+      border: 1px solid var(--accent);
+      background: radial-gradient(
+          circle at 0 0,
+          rgba(246, 242, 233, 0.12),
+          transparent 55%
+        ),
+        linear-gradient(135deg, #c9a34e, #873f00);
+      color: #050505;
+      cursor: pointer;
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9);
+    }
+
+    .nav-cta:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+    /* Hero */
+
+    .hero {
+      margin-top: 26px;
+      margin-bottom: 32px;
+      padding: 28px 24px 24px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 100% 0, rgba(193, 0, 0, 0.18), transparent 55%),
+        radial-gradient(circle at 0 100%, rgba(201, 163, 78, 0.25), transparent 55%),
+        rgba(10, 7, 4, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(42px, 6vw, 56px);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 0.9;
+      margin: 0 0 10px;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-main);
+      max-width: 38rem;
+      margin: 0 0 18px;
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.2);
+      font-size: 11px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      border-radius: var(--radius-md);
+      padding: 9px 16px;
+      font-size: 13px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-main);
+      cursor: pointer;
+      font-family: var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .btn-primary {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, #c9a34e, #873f00);
+      color: #050505;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.06);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(5, 5, 5, 0.7);
+      color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .hero-meta {
+      font-size: 11px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      border-radius: 18px;
+      padding: 12px 12px 10px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      font-family: var(--mono);
+    }
+
+    .hero-meta strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .hero-side {
+      border-radius: 20px;
+      padding: 18px 16px 14px;
+      background:
+        radial-gradient(circle at 0 0, rgba(246, 242, 233, 0.25), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(193, 0, 0, 0.3), transparent 55%),
+        #050505;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-side-heading {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-family: var(--mono);
+    }
+
+    .hero-side-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+      font-size: 13px;
+    }
+
+    .hero-side-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .hero-side-list li:last-child {
+      border-bottom: none;
+    }
+
+    .hero-side-title {
+      font-weight: 600;
+    }
+
+    .hero-side-tag {
+      font-size: 11px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-side-note {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .hero-side-badge {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      border: 1px solid rgba(0, 0, 0, 0.6);
+      background: rgba(246, 242, 233, 0.9);
+      color: #111;
+      font-family: var(--mono);
+    }
+
+    /* Section selector */
+
+    .section-selector {
+      margin-bottom: 28px;
+    }
+
+    .section-selector-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      max-width: 24rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(5, 5, 5, 0.8);
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .pill[data-active="true"] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .pill:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.35);
+      color: var(--text-main);
+    }
+
+    /* Feed */
+
+    .feed {
+      margin-bottom: 40px;
+    }
+
+    .feed-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .feed-title {
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-family: var(--mono);
+    }
+
+    .feed-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .feed-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    @media (max-width: 980px) {
+      .feed-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .feed-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .feed-card {
+      border-radius: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: var(--shadow-subtle);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feed-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at 0 0,
+        rgba(201, 163, 78, 0.08),
+        transparent 55%
+      );
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .feed-card:hover::before {
+      opacity: 1;
+    }
+
+    .feed-tag-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .tag {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: var(--mono);
+    }
+
+    .tag-soft {
+      color: var(--text-muted);
+    }
+
+    .feed-title-link {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .feed-title-link a {
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .feed-title-link a:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+
+    .feed-excerpt {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .feed-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .feed-length {
+      font-family: var(--mono);
+    }
+
+    .feed-read {
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 10px;
+    }
+
+    /* Full texts */
+
+    .fulltexts {
+      margin-bottom: 40px;
+      padding: 22px 18px 18px;
+      border-radius: 24px;
+      background: rgba(5, 5, 5, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .fulltexts-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      align-items: baseline;
+    }
+
+    .fulltexts-title {
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-family: var(--mono);
+    }
+
+    .fulltexts-note {
+      font-size: 11px;
+      color: var(--text-muted);
+      max-width: 30rem;
+    }
+
+    .article {
+      padding: 16px 14px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(10, 10, 10, 0.9);
+      margin-bottom: 16px;
+    }
+
+    .article-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .article-title {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .article-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .article-body {
+      font-size: 13px;
+      line-height: 1.9;
+      color: var(--text-main);
+      margin-top: 8px;
+    }
+
+    .article-body p {
+      margin: 0 0 10px;
+    }
+
+    .article-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .article-footer {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .article-tag {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      color: var(--accent);
+    }
+
+    /* Footer */
+
+    .site-footer {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.09);
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .site-footer span {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand-mark">C</div>
+        <div class="brand-text">
+          <p class="brand-text-title">Cerveza Negra</p>
+          <p class="brand-text-sub">Revista digital de exploración del lenguaje</p>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <!-- Botones que aún no hacen nada “real” -->
+        <button class="nav-link" type="button">Inicio</button>
+        <button class="nav-link" type="button">Textos</button>
+        <button class="nav-link" type="button">Manifiesto</button>
+        <button class="nav-link" type="button">Convocatoria</button>
+        <button class="nav-cta" type="button">Enviar texto</button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <main>
+      <section class="hero" id="inicio">
+        <div>
+          <div class="hero-kicker">Número 0 · beta cruda</div>
+          <h1 class="hero-title">
+            Cerveza <span>Negra</span>
+          </h1>
+          <p class="hero-subtitle">
+            Revista digital para textos que derraman idioma, mezclan géneros,
+            hablan en fragmentos y se permiten fermentar. Aquí no buscamos
+            “corrección”: buscamos <strong>riesgo lingüístico</strong>,
+            narradores rotos, emojis infiltrados y voces que cambian de forma
+            a mitad de oración.
+          </p>
+
+          <div class="hero-chips">
+            <div class="chip">
+              <span class="chip-dot"></span>
+              flujo de conciencia
+            </div>
+            <div class="chip">
+              <span class="chip-dot"></span>
+              narradores fragmentados
+            </div>
+            <div class="chip">
+              <span class="chip-dot"></span>
+              cambio de idioma &amp; género
+            </div>
+            <div class="chip">
+              <span class="chip-dot"></span>
+              emojis, símbolos, glitch
+            </div>
+          </div>
+
+          <div class="hero-ctas">
+            <button class="btn btn-primary" type="button">
+              Enviar texto (próximamente)
+            </button>
+            <button class="btn btn-ghost" type="button">
+              Leer número 0
+            </button>
+          </div>
+
+          <div class="hero-meta">
+            <strong>Nota:</strong> todos los textos de este número están
+            incrustados en <code>&lt;article&gt;</code> HTML directo mientras
+            terminamos el sistema de secciones. Algunos enlaces bajan
+            a los textos, otros son placeholders para la futura estructura.
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="hero-side-heading">En este número</div>
+          <ul class="hero-side-list">
+            <li>
+              <div>
+                <div class="hero-side-title">“Fragmento de espuma”</div>
+                <div class="hero-side-tag">Lengua fermentada</div>
+              </div>
+              <div>☞ <a href="#texto-1" style="color:inherit;text-decoration:none;">leer</a></div>
+            </li>
+            <li>
+              <div>
+                <div class="hero-side-title">“Notas para un glitch”</div>
+                <div class="hero-side-tag">Punk lingüístico</div>
+              </div>
+              <div>☞ <a href="#texto-2" style="color:inherit;text-decoration:none;">leer</a></div>
+            </li>
+            <li>
+              <div>
+                <div class="hero-side-title">“Manual mínimo para desaparecer”</div>
+                <div class="hero-side-tag">Textos con espuma</div>
+              </div>
+              <div>☞ <a href="#texto-3" style="color:inherit;text-decoration:none;">leer</a></div>
+            </li>
+          </ul>
+
+          <p class="hero-side-note">
+            Todo es <em>lorem ipsum</em> por ahora, pero la estructura ya
+            simula el flujo real de la revista: portada con destacados,
+            cards de lectura rápida y los artículos completos más abajo.
+          </p>
+
+          <div class="hero-side-badge">Número 0 · html directo</div>
+        </aside>
+      </section>
+
+      <!-- SECTION SELECTOR -->
+      <section class="section-selector" aria-label="Secciones de la revista">
+        <div class="section-selector-header">
+          <h2 class="section-title">Secciones</h2>
+          <p class="section-subtitle">
+            Los botones todavía no filtran nada, pero ya están listos para
+            conectarse a JavaScript más adelante. Por ahora funcionan como
+            mapa conceptual de la revista.
+          </p>
+        </div>
+        <div class="pill-row">
+          <button class="pill" type="button" data-section="fermentada" data-active="true">
+            Lengua fermentada
+          </button>
+          <button class="pill" type="button" data-section="espuma">
+            Textos con espuma
+          </button>
+          <button class="pill" type="button" data-section="punk">
+            Punk lingüístico
+          </button>
+          <button class="pill" type="button" data-section="taller">
+            Taller de mutaciones
+          </button>
+          <button class="pill" type="button" data-section="editorial">
+            Editorial &amp; manifiesto
+          </button>
+          <button class="pill" type="button" data-section="archivo">
+            Archivo &amp; números anteriores
+          </button>
+        </div>
+      </section>
+
+      <!-- FEED -->
+      <section class="feed" aria-label="Últimos textos">
+        <div class="feed-header">
+          <h2 class="feed-title">Últimos derrames</h2>
+          <div class="feed-meta">
+            Todos los textos de esta grilla apuntan a artículos más abajo:
+            <code>#texto-1</code>, <code>#texto-2</code>, <code>#texto-3</code>.
+          </div>
+        </div>
+
+        <div class="feed-grid">
+          <!-- Card 1 -->
+          <article class="feed-card">
+            <div class="feed-tag-row">
+              <span class="tag">Lengua fermentada</span>
+              <span class="tag tag-soft">Nº 0</span>
+            </div>
+            <h3 class="feed-title-link">
+              <a href="#texto-1">Fragmento de espuma (beta)</a>
+            </h3>
+            <p class="feed-excerpt">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+              fermentum ligula nec ligula vestibulum, ac auctor nisl lobortis.
+              Vivamus 🧪 ligula, varius in risus sed, porttitor fringilla lorem…
+            </p>
+            <div class="feed-footer">
+              <span class="feed-length">~ 3 min · prosa mutada</span>
+              <span class="feed-read">leer en html directo</span>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="feed-card">
+            <div class="feed-tag-row">
+              <span class="tag">Punk lingüístico</span>
+              <span class="tag tag-soft">Nº 0</span>
+            </div>
+            <h3 class="feed-title-link">
+              <a href="#texto-2">Notas para un glitch</a>
+            </h3>
+            <p class="feed-excerpt">
+              Lorem ipsum dolor sit amet, <code>console.log("ipsum")</code>
+              adipiscing elit. Fusce interdum, 😵‍💫 dolor porta blandit
+              porta, neque lacus viverra enim, eget pretium justo orci nec lorem.
+            </p>
+            <div class="feed-footer">
+              <span class="feed-length">~ 2 min · prosa cortada</span>
+              <span class="feed-read">leer en html directo</span>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="feed-card">
+            <div class="feed-tag-row">
+              <span class="tag">Textos con espuma</span>
+              <span class="tag tag-soft">Nº 0</span>
+            </div>
+            <h3 class="feed-title-link">
+              <a href="#texto-3">Manual mínimo para desaparecer</a>
+            </h3>
+            <p class="feed-excerpt">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Pellentesque habitant morbi tristique senectus et netus et
+              malesuada fames. Integer fermentum ut magna id feugiat.
+            </p>
+            <div class="feed-footer">
+              <span class="feed-length">~ 4 min · híbrido</span>
+              <span class="feed-read">leer en html directo</span>
+            </div>
+          </article>
+
+          <!-- Card 4 (placeholder) -->
+          <article class="feed-card">
+            <div class="feed-tag-row">
+              <span class="tag">Taller de mutaciones</span>
+              <span class="tag tag-soft">borrador</span>
+            </div>
+            <h3 class="feed-title-link">
+              <a href="#textos">Cómo romper tu propio texto</a>
+            </h3>
+            <p class="feed-excerpt">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+              porttitor felis vitae ligula dictum, eu aliquam augue fermentum.
+              Suspendisse commodo ligula ex, a luctus elit convallis quis.
+            </p>
+            <div class="feed-footer">
+              <span class="feed-length">~ 5 min · ensayo</span>
+              <span class="feed-read">pronto · en construcción</span>
+            </div>
+          </article>
+
+          <!-- Card 5 (placeholder) -->
+          <article class="feed-card">
+            <div class="feed-tag-row">
+              <span class="tag">Editorial</span>
+              <span class="tag tag-soft">beta</span>
+            </div>
+            <h3 class="feed-title-link">
+              <a href="#textos">Por qué esta revista existe</a>
+            </h3>
+            <p class="feed-excerpt">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+              at leo diam. Nam ultrices, tortor consequat tincidunt malesuada,
+              justo urna dapibus massa, at posuere ligula lorem ac lorem.
+            </p>
+            <div class="feed-footer">
+              <span class="feed-length">~ 3 min · editorial</span>
+              <span class="feed-read">leer pronto</span>
+            </div>
+          </article>
+
+          <!-- Card 6 (placeholder) -->
+          <article class="feed-card">
+            <div class="feed-tag-row">
+              <span class="tag">Archivo</span>
+              <span class="tag tag-soft">futuro</span>
+            </div>
+            <h3 class="feed-title-link">
+              <a href="#textos">Números que aún no existen</a>
+            </h3>
+            <p class="feed-excerpt">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+              facilisis eu quam quis blandit. Sed consequat tellus id nisl
+              pellentesque posuere. Integer sed lorem nec dui facilisis dictum.
+            </p>
+            <div class="feed-footer">
+              <span class="feed-length">archivo vacío</span>
+              <span class="feed-read">próximamente</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- FULL TEXTS (HTML directo) -->
+      <section class="fulltexts" id="textos">
+        <div class="fulltexts-header">
+          <h2 class="fulltexts-title">Textos · html directo</h2>
+          <p class="fulltexts-note">
+            Estos <code>&lt;article&gt;</code> son solo ejemplos con lorem
+            ipsum, pero ya muestran la estructura básica para pegar tus textos:
+            título, autor, sección, cuerpo, tags. Los enlaces de arriba bajan
+            directamente a estos bloques.
+          </p>
+        </div>
+
+        <!-- TEXTO 1 -->
+        <article class="article" id="texto-1">
+          <header class="article-header">
+            <h3 class="article-title">Fragmento de espuma (beta)</h3>
+            <div class="article-meta">
+              Autor: Nombre Apellido · Sección: Lengua fermentada
+            </div>
+          </header>
+          <div class="article-body">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+              aliquet nunc in justo ultricies, a ultrices lorem malesuada.
+              Suspendisse potenti. Integer ut mi vel justo aliquet varius.
+            </p>
+            <p>
+              Aenean fermentum ligula nec nibh pharetra, sit amet pulvinar
+              neque dapibus. Sed id neque sed justo porta aliquet ut eu eros.
+              Morbi dictum lacus sed lorem consequat, id interdum leo volutpat.
+              💬 Aliquam non ipsum sit amet arcu finibus viverra.
+            </p>
+            <p>
+              Curabitur sollicitudin mi eu neque consequat, vitae consequat
+              arcu sagittis. Nunc sed risus vehicula, congue neque nec,
+              malesuada lorem. Fusce quis nisi at ante interdum pretium. Duis
+              dictum condimentum arcu, sed gravida ante suscipit quis.
+            </p>
+            <p>
+              Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+              posuere cubilia curae; Duis at orci nec neque pulvinar sodales.
+              Morbi sed nisi nisl. Maecenas at vestibulum enim, ut posuere
+              risus. Duis mattis ligula non augue fringilla, id consequat
+              orci fermentum.
+            </p>
+          </div>
+          <footer class="article-footer">
+            <span class="article-tag">#fermento · #prosa</span>
+            <span>Referencia: aparece como destacado en “Últimos derrames”.</span>
+          </footer>
+        </article>
+
+        <!-- TEXTO 2 -->
+        <article class="article" id="texto-2">
+          <header class="article-header">
+            <h3 class="article-title">Notas para un glitch</h3>
+            <div class="article-meta">
+              Autor: Nombre Apellido · Sección: Punk lingüístico
+            </div>
+          </header>
+          <div class="article-body">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Pellentesque id lacus sapien. <strong>[ERROR 404]</strong>
+              Integer quis lacinia eros. Sed vitae ante at risus tincidunt
+              blandit non at arcu.
+            </p>
+            <p>
+              <em>&gt; sistema: iniciando ruptura de sintaxis…</em> Lorem ipsum
+              dolor sit amet, consectetur adipiscing elit. Integer varius
+              tincidunt lacus, sed congue lorem condimentum sit amet. Nullam
+              cursus, elit quis finibus tincidunt, augue orci posuere sem,
+              sed ornare orci erat sed elit.
+            </p>
+            <p>
+              Aliquam erat volutpat. Sed facilisis felis nec diam consectetur,
+              quis fermentum arcu consequat. Integer sodales ullamcorper odio,
+              at dignissim justo porta vitae. Proin pretium risus vitae justo
+              mollis, at ullamcorper leo fermentum.
+            </p>
+            <p>
+              <code>
+                // pseudo-código dentro del texto<br/>
+                if (linguagem === "estable") {<br/>
+                &nbsp;&nbsp;throw new Error("romper por favor");<br/>
+                }
+              </code>
+            </p>
+          </div>
+          <footer class="article-footer">
+            <span class="article-tag">#glitch · #punk</span>
+            <span>Referencia: card “Notas para un glitch” en el home.</span>
+          </footer>
+        </article>
+
+        <!-- TEXTO 3 -->
+        <article class="article" id="texto-3">
+          <header class="article-header">
+            <h3 class="article-title">Manual mínimo para desaparecer</h3>
+            <div class="article-meta">
+              Autor: Nombre Apellido · Sección: Textos con espuma
+            </div>
+          </header>
+          <div class="article-body">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+              aliquam urna quis sollicitudin dapibus. Proin a ante vitae lacus
+              rutrum congue. Sed tristique massa vel enim vulputate, eget
+              suscipit sem auctor.
+            </p>
+            <p>
+              Paso 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Ut nec mauris quis augue malesuada auctor. Suspendisse potenti.
+            </p>
+            <p>
+              Paso 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Aliquam consequat, urna et viverra volutpat, sapien ipsum
+              elementum lorem, quis elementum diam lectus quis massa.
+            </p>
+            <p>
+              Paso 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Ut sed elit condimentum, elementum lorem quis, volutpat tellus.
+              Suspendisse faucibus libero ac est porttitor sollicitudin.
+            </p>
+            <p>
+              Y cuando el lector cree que entiende el manual, el texto cambia
+              de tono y de foco: lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Vestibulum eu mi sit amet ipsum commodo semper.
+            </p>
+          </div>
+          <footer class="article-footer">
+            <span class="article-tag">#manual · #híbrido</span>
+            <span>Referencia: card “Manual mínimo para desaparecer”.</span>
+          </footer>
+        </article>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <span>© Cerveza Negra — Número 0 · montaje en HTML directo.</span>
+      <span>Próximamente: sistema de secciones, filtros y envíos.</span>
+    </footer>
+  </div>
+</body>
+</html>
